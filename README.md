@@ -116,6 +116,5 @@ ORDER BY
     Total_Ocorrencias DESC
 ```
 
-<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/OcorrenciasPorAno.png" alt="" width="50%">
 
 **Percepções**
