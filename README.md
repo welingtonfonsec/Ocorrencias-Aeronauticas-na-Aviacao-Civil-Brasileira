@@ -116,5 +116,68 @@ ORDER BY
     Total_Ocorrencias DESC
 ```
 
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/OcorrenciasPorAno.png?raw=true" alt="" width="50%">
 
 **Percepções**
+
+As ocorrências registradas de 2015 à 2023 vêm em uma escalada crescimento. Destes o que chamou mais atenção foi o ano de 2023. Ano que não só ultrapassou o recorde histórico que era de 2013, como mais que dobrou. A diferença é enorme até para o ano de 2022. É um valor que deve ser investigado mais profundamente. Pode ter acontecido de fato mais ocorrências, uma maior fiscalização ou até mesmo uma mudança na metodologia que ocasionou esse crescimento. O fato é que esse crescimento continuo pode trazer preocupação.
+
+### Ocorrências do tipo acidente, incidente e incidente grave por ano
+
+Diante dos números alarmantes do item anterior, uma investigação que explique em parte uma possível relação é necessária
+
+**Acidente por ano**
+
+```
+SELECT
+    YEAR(ocorrencia_dia) AS Ano,
+    COUNT(*) AS Total_Acidentes
+FROM  
+    ocorrencia
+WHERE ocorrencia_classificacao = 'ACIDENTE'
+GROUP BY
+    YEAR(ocorrencia_dia)
+ORDER BY
+    Ano
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/AcidenteAnopng.png" alt="" width="50%">
+
+**Incidente Grave por ano**
+
+```
+SELECT
+    YEAR(ocorrencia_dia) AS Ano,
+    COUNT(*) AS Total_Acidentes
+FROM  
+    ocorrencia
+WHERE ocorrencia_classificacao = 'INCIDENTE GRAVE'
+GROUP BY
+    YEAR(ocorrencia_dia)
+ORDER BY
+    Ano
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/IncidenteGraveAno.png" alt="" width="50%">
+
+**Incidente por ano**
+
+```
+SELECT
+    YEAR(ocorrencia_dia) AS Ano,
+    COUNT(*) AS Total_Acidentes
+FROM  
+    ocorrencia
+WHERE ocorrencia_classificacao = 'INCIDENTE'
+GROUP BY
+    YEAR(ocorrencia_dia)
+ORDER BY
+    Ano
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/IncidenteAno.png" alt="" width="50%">
+
+**Percepções**
+
+A investigação nos traz que o número expressivo de ocorrências em 2023 está ligada diretamente com o número de incidentes. Os números de acidentes e de incidentes graves oscilaram dentro de uma aparente normalidade. É um achado que de certa forma pode ser considerado como uma boa notícia. Pois o aumento expressivo está ligado com o tipo de ocorrêcia menos preocupante.
+
