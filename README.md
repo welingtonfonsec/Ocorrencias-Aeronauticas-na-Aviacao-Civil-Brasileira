@@ -198,6 +198,7 @@ A investigação nos traz que o número expressivo de ocorrências em 2023 está
 
 
 ### Distribuição de ocorrências por Unidades Federativas
+
 ```
 SELECT  TOP (10)
 	ocorrencia_uf AS 'Estados', 
@@ -230,4 +231,69 @@ WHERE
 
 <img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/ocorrenciasSEMUF.png" alt="" width="100%">
 
+
+### Tipos de ocorrência
+
+Em um item anterior, analisamos a classificação de ocorrêcias. Onde foi visto por uma perspectiva de gravidade. Neste item, a analise será feita pelo tipo da ocorrência. Ou seja, o que de fato aconteceu. Na consulta abaixo foi selecionada as 20 maiores causas, de um universo de 86 tipos de ocorrências.
+
+```
+SELECT TOP (20)
+	ocorrencia_tipo, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM  
+	ocorrencia_tipo
+GROUP BY 
+	ocorrencia_tipo
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/PercentualTipoOcorrencia.png" alt="" width="100%">
+
+
+**Percepções**
+
+Temos que das cinco principais causas de ocorrências, quatro são de fatores que em tese não remetem à falha humana. Do ponto de vista para o profissional de aviação são bons resultados. Mas por outro lado, mostra uma certa preocupação por serem situações que fogem de seu controle. Essas informações são de grande importância para as fabricantes de aeronaves. É válido destacar também as ocorrências de colisão com aves, que é um problema que necessita de uma cooperação de todos os envolvidos nesse sistema. O CENIPA entrega um anuário ratificando seu compromisso de contribuir para a prevenção de acidentes aeronáuticos, decorrentes de colisões com fauna, com o desenvolvimento contínuo de técnicas de investigação deste tipo de ocorrência, manutenção do SIGRA (Sistema de Gerenciamento de Risco Aviário) e trabalho em cooperação com outras organizaçõoes (ANAC, Operadores de Aeródromos, SAC, etc) para desenvolver produtos que melhorem o gerenciamento de desse tipo de ocorrência e ao mesmo tempo proteja a fauna no Brasil.
+
+### Tipos de ocorrência por incidente
+
+Como mostrado em um item anterior, foi evidenciado um aumento muito forte de ocorrências entre os anos de 2022 e 2023. Assim foi feita uma breve investigação, e constatou-se que esse aumento tem relação com o aumento das ocorrências classicadas como incidentes. E agora para saber qual tipo de ocorrência afetou diretamento o resultado, vamos para a proxima consulta.
+Foi comparado os anos de 2022 e 2023.
+```
+SELECT TOP (5)
+    ocorrencia_tipo, 
+    COUNT(*) AS total_ocorrencias,
+    FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+    ocorrencia_tipo
+INNER JOIN ocorrencia
+ON  ocorrencia_tipo.codigo_ocorrencia1 = ocorrencia.codigo_ocorrencia1
+WHERE ocorrencia_classificacao = 'INCIDENTE' AND YEAR(ocorrencia_dia) = 2022
+GROUP BY 
+    ocorrencia_tipo
+ORDER BY
+    COUNT(*) DESC
+```
+```
+SELECT TOP (5)
+    ocorrencia_tipo, 
+    COUNT(*) AS total_ocorrencias,
+    FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+    ocorrencia_tipo
+INNER JOIN ocorrencia
+ON  ocorrencia_tipo.codigo_ocorrencia1 = ocorrencia.codigo_ocorrencia1
+WHERE ocorrencia_classificacao = 'INCIDENTE' AND YEAR(ocorrencia_dia) = 2023
+GROUP BY 
+    ocorrencia_tipo
+ORDER BY
+    COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/IncidentesTipo2022e2023.png" alt="" width="100%">
+
+**Percepções**
+
+Como observado acima, a razão do grande aumento de ocorrências em 2023 foi o aumento expressivo de colisões com aves. Esse aumento pode ser causado de fato pelo aumento desse tipo de ocorrência, por uma maior fiscalização ou por uma mudança metodológica.
 
