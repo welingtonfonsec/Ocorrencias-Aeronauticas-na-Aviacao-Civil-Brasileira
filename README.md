@@ -366,6 +366,7 @@ ORDER BY
 <img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/OcorrenciaFabricante.png" alt="" width="100%">
 
 **Percepções**
+
 A fabricante americana Cessna Aircraft ocupa 13,66% das causas de ocorrências envolvendo aeronaves, seguida das brasileiras EMBRAER e Neiva Industria. 
 
 A **Cessna Aircraft**, integrada à Textron Aviation, tem uma presença consolidada no mercado aéreo brasileiro. Suas aeronaves, desde modelos leves até jatos executivos, são amplamente utilizadas em operações de aviação geral, treinamento de pilotos e voos executivos. A Cessna é reconhecida por oferecer aeronaves versáteis e confiáveis, adaptadas às demandas diversificadas da aviação no Brasil.
