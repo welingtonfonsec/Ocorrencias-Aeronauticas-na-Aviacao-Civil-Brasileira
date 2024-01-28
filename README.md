@@ -102,6 +102,21 @@ GROUP BY
 Diante da consulta é evidenciado que a grande maioria das ocorrêcias registradas durante o período são as de menor gravidade, pelo menos para a ANAC. Ou seja, são números confortantes.
 
 
+### Média de ocorrêcias por ano
+
+```
+SELECT 
+    ROUND((SELECT COUNT(*) * 1.0 / COUNT(DISTINCT YEAR(ocorrencia_dia)) FROM ocorrencia), 2) AS 'Média de Ocorrências por Ano'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/MediaAnualOcorrencias.png" alt="" width="50%">
+
+
+**Percepções**
+
+Ao ano, em média, a aviação civil brasileira tem 577,71 ocorrêcias.
+
+
 ### Quantas ocorrências por ano?
 
 ```
@@ -180,4 +195,39 @@ ORDER BY
 **Percepções**
 
 A investigação nos traz que o número expressivo de ocorrências em 2023 está ligada diretamente com o número de incidentes. Os números de acidentes e de incidentes graves oscilaram dentro de uma aparente normalidade. É um achado que de certa forma pode ser considerado como uma boa notícia. Pois o aumento expressivo está ligado com o tipo de ocorrêcia menos preocupante.
+
+
+### Distribuição de ocorrências por Unidades Federativas
+```
+SELECT  TOP (10)
+	ocorrencia_uf AS 'Estados', 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM  
+	ocorrencia
+GROUP BY 
+	ocorrencia_uf
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/OcorrenciasPorEstado.png" alt="" width="100%">
+
+
+**Percepções**
+
+Como esperado, o maior número de ocorrências registradas aconteceram no estado de São Paulo. Mais até que a soma de todos os estados da região Sudeste. Esse número pode ser explicado por ser o estado com mais aeroportos e consequentemente uma maior movimentação aérea. Para a região Sul, o estado que se destaca é o do Paraná. No Centro-Oeste, Mato Grosso. No Norte, Pará. E no Nordeste, o Estado da Bahia. 
+
+Na base de dados existem registros sem UF, preenchidos com "***". Estes registros são de ocorrências em aeronaves que decolaram no Brasil mas que tiveram problemas em águas internacionais ou em lugar desconhecido, Como pode ser visto abaixo.
+```
+SELECT  
+	ocorrencia_uf, ocorrencia_classificacao, ocorrencia_cidade, ocorrencia_dia
+FROM  
+	ocorrencia
+WHERE 
+	ocorrencia_uf = '***'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/ocorrenciasSEMUF.png" alt="" width="100%">
+
 
