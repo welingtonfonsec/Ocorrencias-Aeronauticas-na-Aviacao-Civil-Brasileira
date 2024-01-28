@@ -323,6 +323,32 @@ ORDER BY
 A popularidade é causa direta de o número 1 de ocorrências aéreas serem os **motores à pistão**. Os motores à pistão são uma opção comum em aviação, conhecidos por sua simplicidade, confiabilidade e facilidade de manutenção. Semelhantes aos motores de carros, são amplamente utilizados em aeronaves de treinamento e na aviação executiva, como no Beechcraft Baron e Piper Seneca. Além da versatilidade operacional, esses motores oferecem custos mais baixos devido à disponibilidade de mão de obra qualificada e ao uso de gasolina, mais econômica que o querosene de aviação. Sua comparação com os motores do Volkswagen Fusca destaca a acessibilidade e praticidade associadas a essa tecnologia na aviação. Em segundo lugar, os **motores à jato ou Turbofan**. Os motores turbofan funcionam inversamente aos turbo-hélices, gerando força ao expelir o ar para trás. Destacam-se pela eficiência em altas velocidades, contrastando com os turbo-hélices. A comparação com automóveis ilustra a diferença de desempenho em arrancadas e velocidades elevadas. Esses motores demandam considerável fluxo de ar para operar plenamente, passando por compressores, câmara de combustão e turbina. Aeronaves com motores à jato necessitam de infraestrutura aeroportuária mais robusta e podem ter maior consumo de combustível. A escolha entre esses motores depende das necessidades específicas do voo. A Flapper oferece aeronaves seguras e certificadas para voos personalizados no Brasil e no exterior, proporcionando tranquilidade aos clientes. Em terceiro os **Turbo-Helice**. Os motores turbo-hélice destacam-se por suas grandes hélices acopladas ao próprio eixo, muitas vezes ultrapassando a altura da aeronave. Essa característica gera uma tração significativa, facilitando operações em pistas curtas tanto durante decolagens quanto pousos. O "passo reverso" das pás, ajustado pelos pilotos por meio do governo da hélice, contribui para efetiva frenagem mecânica, aumentando a eficiência dos freios. Comparáveis ao torque de automóveis turbo, esses motores são adaptáveis em diversas fases do voo, permitindo ajustes automáticos ou manuais no ângulo das pás. A eficiência e menor consumo de combustível, especialmente ao utilizar querosene, tornam os motores turbo-hélice atrativos, com destaque para modelos como o Pratt & Whitney PT-6, reconhecidos por sua confiabilidade. O ajuste de passo desempenha papel crucial em situações de pane de motor, proporcionando controle aerodinâmico em condições extremas.
 
 
+### Qual tipo de aeronave gerou mais ocorrências?
+
+```
+SELECT
+	aeronave_tipo_veiculo, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_tipo_veiculo
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/OcorrenciaTipoAeronave.png" alt="" width="100%">
+
+**Percepções**
+
+Claramente, ocorrências com aviões são notavelmente mais comuns do que qualquer outro tipo de aeronave. Além disso, o número total de ocorrências com aviões supera a soma de todos os outros tipos de aeronaves. 
+
+
+
+
 
 
 
