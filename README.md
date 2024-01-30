@@ -109,7 +109,7 @@ SELECT
     ROUND((SELECT COUNT(*) * 1.0 / COUNT(DISTINCT YEAR(ocorrencia_dia)) FROM ocorrencia), 2) AS 'Média de Ocorrências por Ano'
 ```
 
-<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/MediaAnualOcorrencias.png" alt="" width="50%">
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/MediaAnualOcorrencias.png" alt="" width="100%">
 
 
 **Percepções**
@@ -376,3 +376,99 @@ A **Embraer** é uma das maiores fabricantes de aeronaves do mundo e tem uma inf
 A **Neiva Indústria Aeronáutica**, agora parte da Embraer, teve uma presença marcante na aviação brasileira. Especializada em aeronaves de treinamento, como o conhecido T-25 Universal, a Neiva contribuiu para o desenvolvimento da aviação militar e civil no Brasil. Seu histórico inclui a produção de aeronaves robustas e adaptadas às demandas das forças armadas e escolas de aviação no país.
 
 Essas fabricantes desempenham papéis distintos, oferecendo diversidade e qualidade à frota aérea brasileira, abrangendo desde a aviação geral até segmentos militares e executivos.
+
+### Qual o tipo de voo costuma ter mais ocorrências?
+
+
+```
+SELECT
+	aeronave_registro_segmento, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_registro_segmento
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipodeVoo.png" alt="" width="100%">
+
+**Percepções**
+
+As estatísticas indicam que viagens aéreas são uma das formas mais seguras de transporte, ficando apenas atrás dos elevadores em termos de segurança. Isso se deve a regulamentações rigorosas, avanços tecnológicos e treinamento intensivo de pilotos. Esse tipo de rigor é padrão das grandes empresas de aviação que operam os voos regulares e isso remete um sentimento de segurança ainda maior quando se compara com voos de outros segmentos como voos particulares e taxi aéreo, que são geridas por empresas de estrutura menor. Porém a consulta mostra que os voos regulares são lideres em ocorrências. O que gera uma certa preocupação, visto que é o segmento mais acessivel e consequentemente o mais popular no país. Além disso, surgem questionamentos como: São ocorrências simples que são prontamente resolvidas ou são ocorrêcias mais graves que colocam em risco diretamente a vida dos usuários desse serviço tão popular? 
+
+Esse achado pede uma investigação um pouco mais aprofundada no próximo item.
+
+### Qual o tipo de voo costuma ter mais ocorrências do tipo acidente?
+
+```
+SELECT
+	aeronave_registro_segmento, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+WHERE ocorrencia_classificacao = 'ACIDENTE'
+GROUP BY 
+	aeronave_registro_segmento
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeVooAcidentes.png" alt="" width="100%">
+
+**Percepções**
+
+Indo direto ao ponto, as ocorrências foram filtradas por "acidente", que é o nivel de ocorrência mais grave para a ANAC. Nesse sentido, a consulta mostra que a esmagadora maioria dos acidentes ocorrem com voos particulares em 39,25% dos casos. Os voos regulares ocupam a posição nove com menos de 1% dos casos. Essa informação vem certa forma para aliviar os usuários de voos regulares, confirmando que as ocorrências nesse segmento em sua maioria não são gravosos. Por outro lado, acende uma luz de alerta para os outros segmentos tais como: particulares, agrícolas, experimentais e de instrução. Estes que necessitam de uma fiscalização bem mais rigorosa, aos moldes das grandes empresas de aviação regular. Principalmente o segmento de voos particulares que nos útimos anos vem crescendo forte no cenário nacional.
+
+
+### A quantidade de motores na aeronave influencia no número de ocorrências? E de acidentes?
+
+```
+SELECT
+	aeronave_motor_quantidade, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_motor_quantidade
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/QtdMotorOcorrencia.png" alt="" width="100%">
+
+
+Agora filtrando por 'Acidentes'
+
+```
+SELECT
+	aeronave_motor_quantidade, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+WHERE ocorrencia_classificacao = 'ACIDENTE'
+GROUP BY 
+	aeronave_motor_quantidade
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/AcidenteQntMotor.png" alt="" width="100%">
+
+**Percepções**
+
+A segurança de aeronaves com menos motores pode ser influenciada por fatores como o uso em operações desafiadoras (treinamento, voos privados), menor redundância em caso de falha o que significa que a perda de um motor pode representar um desafio maior. O resultado da consulta fortalece esse argumento ao trazer uma aparente relação inversa entre a quantidade de ocorrências e quantidade de motores por aeronave. Isso fica bem mais evidente quando se filtra por 'acidente'. 
+
