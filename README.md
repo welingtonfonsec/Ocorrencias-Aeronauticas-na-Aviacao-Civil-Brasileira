@@ -346,10 +346,33 @@ ORDER BY
 
 Claramente, ocorrências com aviões são notavelmente mais comuns do que qualquer outro tipo de aeronave. Além disso, o número total de ocorrências com aviões supera a soma de todos os outros tipos de aeronaves. 
 
+### Qual fabricante de aeronave gerou mais ocorrências?
 
+```
+SELECT TOP (10)
+	aeronave_fabricante, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_fabricante
+ORDER BY
+	COUNT(*) DESC
+```
 
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/OcorrenciaFabricante.png" alt="" width="100%">
 
+**Percepções**
 
+A fabricante americana Cessna Aircraft ocupa 13,66% das causas de ocorrências envolvendo aeronaves, seguida das brasileiras EMBRAER e Neiva Industria. 
 
+A **Cessna Aircraft**, integrada à Textron Aviation, tem uma presença consolidada no mercado aéreo brasileiro. Suas aeronaves, desde modelos leves até jatos executivos, são amplamente utilizadas em operações de aviação geral, treinamento de pilotos e voos executivos. A Cessna é reconhecida por oferecer aeronaves versáteis e confiáveis, adaptadas às demandas diversificadas da aviação no Brasil.
 
+A **Embraer** é uma das maiores fabricantes de aeronaves do mundo e tem uma influência significativa no mercado aéreo brasileiro. Reconhecida por seus jatos comerciais, executivos e militares, a Embraer desempenha um papel importante na aviação civil e de defesa no Brasil. Além da produção de aeronaves, a empresa também oferece soluções integradas em serviços de suporte e treinamento.
 
+A **Neiva Indústria Aeronáutica**, agora parte da Embraer, teve uma presença marcante na aviação brasileira. Especializada em aeronaves de treinamento, como o conhecido T-25 Universal, a Neiva contribuiu para o desenvolvimento da aviação militar e civil no Brasil. Seu histórico inclui a produção de aeronaves robustas e adaptadas às demandas das forças armadas e escolas de aviação no país.
+
+Essas fabricantes desempenham papéis distintos, oferecendo diversidade e qualidade à frota aérea brasileira, abrangendo desde a aviação geral até segmentos militares e executivos.
