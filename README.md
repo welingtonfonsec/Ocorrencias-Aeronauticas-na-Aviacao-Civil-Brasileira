@@ -472,3 +472,31 @@ ORDER BY
 
 A segurança de aeronaves com menos motores pode ser influenciada por fatores como o uso em operações desafiadoras (treinamento, voos privados), menor redundância em caso de falha o que significa que a perda de um motor pode representar um desafio maior. O resultado da consulta fortalece esse argumento ao trazer uma aparente relação inversa entre a quantidade de ocorrências e quantidade de motores por aeronave. Isso fica bem mais evidente quando se filtra por 'acidente'. 
 
+### Quais fases de operação costumam ter mais ocorrências?
+
+Agora análise se volta para o momento ou procedimento do voo que aconteceram mais ocorrências. Aqui pode ser respondidas perguntas como: qual o momento mais crítico de toda a viagem aérea? Quando o usuário deve apertar os cintos?
+
+```
+SELECT TOP (10)
+	aeronave_fase_operacao, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_fase_operacao
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/ProcedimentoOcorrencia.png" alt="" width="100%">
+
+**Percepções**
+
+Como esperado e como é divulgado em veículos de informação, a decolagem, o pouso e o estágio de cruzeiro são os momentos mais críticos em uma viagem aérea. A decolagem demanda superar a gravidade com uma grande quantidade de energia, enquanto o pouso exige precisão na aproximação e controle próximo ao solo. Durante o cruzeiro, embora seja uma fase mais estável, é necessário manter a estabilidade por períodos prolongados, gerenciando eficientemente o combustível. Essas fases demandam habilidades precisas dos pilotos e atenção rigorosa, sendo essenciais para garantir a segurança ao longo de toda a jornada.
+
+
+
+
