@@ -18,7 +18,24 @@ Autor: Welington Fonseca
 
 [6. Conclusão e recomendações](#conclusão-e-recomendações)
 
+## Tarefa de Negócios
 
+  * Quais fatores mais frequentemente contribuem para ocorrências e potenciais acidentes aéreos?
+  * Ao longo do intervalo temporal da base, está havendo uma redução ou aumento de casos?
+  * Quais Estados brasileiros têm chamado atenção com o número de ocorrências?
+  * Dentro da variedade de aeronaves presentes no espaço aéreo brasileiro, qual tipo é mais frequentemente envolvida em ocorrências? Avões, Helicópteros, jatos?
+  * Quanto à quantidade de motores que uma aeronave possui, as que possuem menos se envolvem em mais acidentes?  
+  * Em relação às fabricantes de aeronaves, qual delas é a número 1 em quantidade de casos?
+  * É realmente no pouso a fase de operação que costuma ter mais ocorrências? e como são os números das outras fases?
+  * Há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros?
+  * Quantos incidentes com mortes ocorreram? Quantas pessoas morrem em cada ocorrência? 
+
+## Dados
+
+* **Fonte de dados**: A [base de dados](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira) de ocorrências aeronáuticas é gerenciada pelo Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA);
+* **Acessibilidade e privacidade de dados**: a fonte de informações provém do [portal de dados abertos](https://dados.gov.br/home), que reforça a natureza pública e acessível dos dados utilizados, promovendo transparência e facilitando o acesso à informação para o público em geral;
+* **Tamanho e formato**: 3 arquivos no formato ```CSV``` (6,84 MB, descompactado);
+* **Intervalo dos dados da análise**: Janeiro de 2007 à Dezembro de 2023. 
 
 ### Quantas ocorrências estão registradas no banco de dados?
 
