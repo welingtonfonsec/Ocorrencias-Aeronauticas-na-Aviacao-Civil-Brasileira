@@ -18,7 +18,24 @@ Autor: Welington Fonseca
 
 [6. Conclusão e recomendações](#conclusão-e-recomendações)
 
+## Tarefa de Negócios
 
+  * Quais fatores mais frequentemente contribuem para ocorrências e potenciais acidentes aéreos?
+  * Ao longo do intervalo temporal da base, está havendo uma redução ou aumento de casos?
+  * Quais Estados brasileiros têm chamado atenção com o número de ocorrências?
+  * Dentro da variedade de aeronaves presentes no espaço aéreo brasileiro, qual tipo é mais frequentemente envolvida em ocorrências? Avões, Helicópteros, jatos?
+  * Quanto à quantidade de motores que uma aeronave possui, as que possuem menos se envolvem em mais acidentes?  
+  * Em relação às fabricantes de aeronaves, qual delas é a número 1 em quantidade de casos?
+  * É realmente no pouso a fase de operação que costuma ter mais ocorrências? e como são os números das outras fases?
+  * Há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros?
+  * Quantos incidentes com mortes ocorreram? Quantas pessoas morrem em cada ocorrência? 
+
+## Dados
+
+* **Fonte de dados**: A [base de dados](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira) de ocorrências aeronáuticas é gerenciada pelo Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA);
+* **Acessibilidade e privacidade de dados**: a fonte de informações provém do [portal de dados abertos](https://dados.gov.br/home), que reforça a natureza pública e acessível dos dados utilizados, promovendo transparência e facilitando o acesso à informação para o público em geral;
+* **Tamanho e formato**: 3 arquivos no formato ```CSV``` (6,84 MB, descompactado);
+* **Intervalo dos dados da análise**: Janeiro de 2007 à Dezembro de 2023. 
 
 ### Quantas ocorrências estão registradas no banco de dados?
 
@@ -498,5 +515,64 @@ ORDER BY
 Como esperado e como é divulgado em veículos de informação, a decolagem, o pouso e o estágio de cruzeiro são os momentos mais críticos em uma viagem aérea. A decolagem demanda superar a gravidade com uma grande quantidade de energia, enquanto o pouso exige precisão na aproximação e controle próximo ao solo. Durante o cruzeiro, embora seja uma fase mais estável, é necessário manter a estabilidade por períodos prolongados, gerenciando eficientemente o combustível. Essas fases demandam habilidades precisas dos pilotos e atenção rigorosa, sendo essenciais para garantir a segurança ao longo de toda a jornada.
 
 
+### Quais são os tipos de danos que podem ocorrer a uma aeronave? E qual a mais comum?
+
+A CENIPA (Centro de Investigação e Prevenção de Acidentes Aeronáuticos) usa padrões internacionais ao avaliar e relatar incidentes aéreos. As nomenclaturas dos tipos de danos são: 
+
+**Nenhum Dano:** Não resultou em danos à estrutura, sistemas ou componentes.
+
+**Dano Leve:** Pode envolver danos superficiais ou pequenas peças.
+
+**Dano Substancial:** Os danos são mais sérios e afetam a integridade estrutural, a funcionalidade ou a segurança da aeronave. Este nível de dano pode exigir reparos extensos.
+
+**Aeronave Destruída:** Este é o nível mais grave, indicando que a aeronave sofreu danos tão significativos que a sua recuperação ou reparo não é viável. A aeronave é considerada como perdida.
+
+```
+SELECT
+	aeronave_nivel_dano, 
+	COUNT(*) AS total_ocorrencias,
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_nivel_dano
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDano.png" alt="" width="100%">
+
+
+**Percepções**
+
+Como explicado acima e levando em consideração os números resultantes da consulta, a grande maioria, **68,17%**, das ocorrências são de eventos de leve ou de nenhuma gravidade para a integridade estrutural, ou funcionalidade ou a segurança da aeronave, reforçando a confiabilidade desse meio de transporte.
+
+
+### Frequência de fatalidades por ocorrência
+
+Possivelmente, o leitor mais direto pode ter pulado as seções anteriores, chegando a esta pergunta crucial: quantos óbitos ocorreram nessas ocorrências registradas? É, de fato, um ponto de grande impacto e relevância. Enfim, aos resultados. Para responder essa pergunta foi agrupado os casos onde pessoas morreram por quantidade, a fim de saber não só quantas fatalidades de 2007 à 2023, mas também a sua frequência.
+
+```
+SELECT
+	aeronave_fatalidades_total AS 'Mortes', 
+	COUNT(aeronave_fatalidades_total) AS 'Frequência',
+	FORMAT(CAST(COUNT(*) AS DECIMAL(18, 2)) / CAST(SUM(COUNT(*)) OVER () AS DECIMAL(18, 2)), '0.00%') AS 'Percentual'
+FROM 
+	aeronave
+INNER JOIN ocorrencia
+ON 	aeronave.codigo_ocorrencia2 = ocorrencia.codigo_ocorrencia1
+GROUP BY 
+	aeronave_fatalidades_total
+ORDER BY
+	COUNT(*) DESC
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/MortesPorOcorrencia.png" alt="" width="100%">
+
+**Percepções**
+
+Felizmente e como era esperado, a esmagadora maioria, quase **94%**, das ocrrências não tem qualquer fatalidade. Em segundo lugar vem as ocorrências com apenas uma morte com pouco mais que 3% e em terceiro duas mortes com 1,67%. Isso se deve ao alto número de ocorrêcias com motores à pistão, que geralmente são usadas em pequenas aeronaves do tipo monomotores e bimotores que têm como uma de suas caracteristicas possuírem um ou dois assentos. 
 
 
