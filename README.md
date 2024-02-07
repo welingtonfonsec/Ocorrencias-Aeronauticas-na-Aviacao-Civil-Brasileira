@@ -10,7 +10,7 @@ Autor: Welington Fonseca
 
 [2. Tarefa de Negócios](#tarefa-de-negócios)
 
-[3. Dados](#dados)
+[3. Dados e Exploração](#dados-e-exploração)
 
 [4. Processamento e Exploração](#processamento-e-exploração)
 
@@ -30,12 +30,70 @@ Autor: Welington Fonseca
   * Há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros?
   * Quantos incidentes com mortes ocorreram? Quantas pessoas morrem em cada ocorrência? 
 
-## Dados
+## Dados e Exploração
 
 * **Fonte de dados**: A [base de dados](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira) de ocorrências aeronáuticas é gerenciada pelo Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA);
 * **Acessibilidade e privacidade de dados**: a fonte de informações provém do [portal de dados abertos](https://dados.gov.br/home), que reforça a natureza pública e acessível dos dados utilizados, promovendo transparência e facilitando o acesso à informação para o público em geral;
 * **Tamanho e formato**: 3 arquivos no formato ```CSV``` (6,84 MB, descompactado);
-* **Intervalo dos dados da análise**: Janeiro de 2007 à Dezembro de 2023. 
+* **Intervalo dos dados da análise**: Janeiro de 2007 à Dezembro de 2023.
+
+### Sobre os datasets
+
+Para este estudo, foram utilizados três datasets da CENIPA:
+
+**Ocorrencia.csv**: Possui os dados sobre cada ocorrência registrada de 2007 à 2023. Código da Ocorrência, Data, Motivo da Ocorrência e Localização serão encontrados nesse conjunto de dados.
+
+**Ocorrencia_tipo.csv**: Aqui que importa para a analise é o tipo de ocorrência. Por exemplo: Colisão com ave, Falha ou mau funcionamento de sistema e varios outros.
+
+**Aeronave.csv**: Informações agrupadas sobre as aeronaves envolvidas nas ocorrências registradas no arquivo ocorrencia.csv. Aqui serão encontrados dados como: Modelo da Aeronave, Tipo de Aeronave, Fabricante, Quantidade de Fatalidades, dentre outros.
+
+### Sobre os tipos de dados para cada Dataset
+
+**Ocorrencia.csv**:
+
+```
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'ocorrencia'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDado_Ocorrencia.png" alt="" width="50%">
+
+
+**Ocorrencia_tipo.csv**
+
+```
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'ocorrencia_tipo'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDado_OcorrenciaTipoSem%20t%C3%ADtulo.png" alt="" width="100%">
+
+
+**Aeronave.csv**
+
+```
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'aeronave'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDado_Aeronave.png" alt="" width="100%">
+
+
 
 ### Quantas ocorrências estão registradas no banco de dados?
 
