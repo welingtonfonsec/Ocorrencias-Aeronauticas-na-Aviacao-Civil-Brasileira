@@ -10,13 +10,11 @@ Autor: Welington Fonseca
 
 [2. Tarefa de Negócios](#tarefa-de-negócios)
 
-[3. Dados e Exploração](#dados-e-exploração)
+[3. Dados, Exploração e Percepções](#dados-exploração-e-percepções)
 
-[4. Processamento e Exploração](#processamento-e-exploração)
+[6. Conclusão](#conclusão)
 
-[5. Análise e Visualização](#análise-e-visualização)
-
-[6. Conclusão e recomendações](#conclusão-e-recomendações)
+[7. Recomendações](#recomendações)
 
 ## Introdução
 
@@ -45,7 +43,7 @@ Por fim, o estudo busca responder se há uma maior incidência de problemas em v
   * Há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros?
   * Quantos incidentes com mortes ocorreram? Quantas pessoas morrem em cada ocorrência? 
 
-## Dados e Exploração
+## Dados, Exploração e Percepções
 
 * **Fonte de dados**: A [base de dados](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira) de ocorrências aeronáuticas é gerenciada pelo Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA);
 * **Acessibilidade e privacidade de dados**: a fonte de informações provém do [portal de dados abertos](https://dados.gov.br/home), que reforça a natureza pública e acessível dos dados utilizados, promovendo transparência e facilitando o acesso à informação para o público em geral;
@@ -648,4 +646,36 @@ ORDER BY
 
 Felizmente e como era esperado, a esmagadora maioria, quase **94%**, das ocrrências não tem qualquer fatalidade. Em segundo lugar vem as ocorrências com apenas uma morte com pouco mais que 3% e em terceiro duas mortes com 1,67%. Isso se deve ao alto número de ocorrêcias com motores à pistão, que geralmente são usadas em pequenas aeronaves do tipo monomotores e bimotores que têm como uma de suas caracteristicas possuírem um ou dois assentos. 
 
+## Conclusão
 
+Com base nas análises realizadas sobre as ocorrências aeronáuticas na aviação civil brasileira, é possível tirar algumas conclusões importantes. Primeiramente, observa-se que a maioria das ocorrências registradas são de menor gravidade, o que é reconfortante em termos de segurança aérea.
+
+No entanto, um ponto de preocupação é o aumento significativo no número de ocorrências entre 2015 e 2023, com destaque para o ano de 2023, que não apenas ultrapassou o recorde histórico de 2013, mas mais que dobrou. Esse aumento levanta questões sobre a possibilidade de mais ocorrências reais, uma maior fiscalização ou até mesmo mudanças na metodologia de registro.
+
+Outro ponto relevante é a relação entre o número de ocorrências e os tipos de aeronaves. A predominância de ocorrências com aviões em relação a helicópteros, jatos e outros tipos de aeronaves indica a necessidade de uma atenção especial a esse segmento.
+
+Além disso, a análise por estado mostra que São Paulo lidera em número de ocorrências, o que pode ser explicado pela maior quantidade de aeroportos e movimentação aérea nesse estado. Essas informações são cruciais para direcionar esforços de prevenção e melhoria da segurança aérea.
+
+Em relação às causas das ocorrências, é interessante notar que a maioria delas não está diretamente relacionada à falha humana, o que é um bom sinal. No entanto, isso também indica a necessidade de um cuidado especial com fatores externos que fogem ao controle dos profissionais da aviação.
+
+Por fim, é reconfortante observar que a grande maioria das ocorrências não resulta em fatalidades, o que ressalta a segurança geral do meio de transporte aéreo. No entanto, é importante continuar monitorando e analisando esses dados para garantir que a aviação civil brasileira continue evoluindo em termos de segurança e eficiência.
+
+## Recomendações
+
+Com base nas análises realizadas sobre as ocorrências aeronáuticas na aviação civil brasileira, algumas recomendações podem ser sugeridas para aprimorar a segurança e prevenir futuros incidentes:
+
+**Análise aprofundada de 2023:** Devido ao aumento expressivo de ocorrências neste ano, é recomendável uma investigação mais detalhada para compreender as causas desse aumento e implementar medidas preventivas eficazes.
+
+**Fiscalização intensificada:** Considerando que a maioria das ocorrências não está relacionada à falha humana, é importante intensificar a fiscalização de fatores externos, como condições climáticas, infraestrutura aeroportuária e manutenção das aeronaves.
+
+**Treinamento e conscientização:** Investir em programas de treinamento e conscientização para pilotos, tripulações e equipes de manutenção pode ajudar a reduzir o número de ocorrências relacionadas a fatores humanos e garantir uma abordagem mais segura durante as operações.
+
+**Melhoria na gestão de risco avíario:** Dada a relevância das colisões com aves, é fundamental fortalecer as medidas de prevenção e gestão de risco avíario, em colaboração com diversas organizações do setor.
+
+**Manutenção e renovação de aeronaves:** Garantir que as aeronaves estejam em perfeitas condições de funcionamento e que sejam atualizadas conforme as normas de segurança vigentes é essencial para evitar ocorrências relacionadas a problemas mecânicos.
+
+**Reforço na capacitação de pilotos de voos particulares:** Devido ao alto índice de ocorrências nesse segmento, é importante implementar programas de capacitação específicos e rigorosos para os pilotos de voos particulares, visando melhorar a segurança dessas operações.
+
+**Cooperação e compartilhamento de informações:** Estabelecer uma maior cooperação e compartilhamento de informações entre as diferentes instituições e empresas do setor pode contribuir para identificar padrões, tendências e áreas de maior risco, possibilitando ações preventivas mais eficazes.
+
+Essas recomendações visam melhorar a segurança da aviação civil brasileira e garantir uma operação mais segura e eficiente para todos os envolvidos no setor.
