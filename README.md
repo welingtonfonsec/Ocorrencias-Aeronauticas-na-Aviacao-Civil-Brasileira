@@ -18,6 +18,21 @@ Autor: Welington Fonseca
 
 [6. Conclusão e recomendações](#conclusão-e-recomendações)
 
+## Introdução
+
+A análise das ocorrências aeronáuticas na aviação civil brasileira é de extrema importância para a segurança e o aprimoramento contínuo do setor. Este estudo de caso utiliza dados abertos do Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA), abrangendo o intervalo de Janeiro de 2007 a Dezembro de 2023. A ferramenta utilizada para a análise foi o SQL Server, permitindo a extração de insights valiosos a partir desses dados.
+
+Uma das questões centrais abordadas neste estudo é a identificação dos fatores mais frequentemente associados a ocorrências e potenciais acidentes aéreos. Além disso, busca-se analisar a tendência temporal desses eventos, investigando se há uma redução ou aumento de casos ao longo do intervalo considerado.
+
+Outro ponto de interesse é a identificação dos Estados brasileiros que têm se destacado com o maior número de ocorrências, bem como a análise da variedade de aeronaves presentes no espaço aéreo brasileiro, buscando determinar qual tipo é mais frequentemente envolvido em ocorrências: aviões, helicópteros ou jatos.
+
+A análise também aborda a relação entre a quantidade de motores de uma aeronave e a frequência de acidentes, investigando se as aeronaves com menos motores tendem a se envolver em mais ocorrências. Além disso, é examinada a participação das diferentes fabricantes de aeronaves, buscando identificar qual delas lidera em quantidade de casos.
+
+Um aspecto fundamental abordado neste estudo é a análise das fases de operação da aeronave em que ocorrem mais ocorrências, com foco especial na fase de pouso e comparação com as demais fases de voo.
+
+Por fim, o estudo busca responder se há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros tipos de operação. Além disso, são investigados o número total de incidentes com mortes e a média de pessoas que morrem em cada ocorrência, fornecendo insights cruciais para a segurança da aviação civil brasileira.
+
+
 ## Tarefa de Negócios
 
   * Quais fatores mais frequentemente contribuem para ocorrências e potenciais acidentes aéreos?
