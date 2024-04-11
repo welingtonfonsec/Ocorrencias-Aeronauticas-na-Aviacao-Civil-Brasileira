@@ -8,17 +8,30 @@ Autor: Welington Fonseca
 
 [1. Introdução](#introdução)
 
-[2. Tarefa de Negócios](#tarefa-de-negócios)
+[2. Tópicos a Serem Explorados](#tópicos-a-serem-explorados)
 
-[3. Dados](#dados)
+[3. Dados, Exploração e Percepções](#dados-exploração-e-percepções)
 
-[4. Processamento e Exploração](#processamento-e-exploração)
+[6. Conclusão](#conclusão)
 
-[5. Análise e Visualização](#análise-e-visualização)
+[7. Recomendações](#recomendações)
 
-[6. Conclusão e recomendações](#conclusão-e-recomendações)
+## Introdução
 
-## Tarefa de Negócios
+A análise das ocorrências aeronáuticas na aviação civil brasileira é de extrema importância para a segurança e o aprimoramento contínuo do setor. Este estudo de caso utiliza dados abertos do Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA), abrangendo o intervalo de Janeiro de 2007 a Dezembro de 2023. A ferramenta utilizada para a análise foi o SQL Server, permitindo a extração de insights valiosos a partir desses dados.
+
+Uma das questões centrais abordadas neste estudo é a identificação dos fatores mais frequentemente associados a ocorrências e potenciais acidentes aéreos. Além disso, busca-se analisar a tendência temporal desses eventos, investigando se há uma redução ou aumento de casos ao longo do intervalo considerado.
+
+Outro ponto de interesse é a identificação dos Estados brasileiros que têm se destacado com o maior número de ocorrências, bem como a análise da variedade de aeronaves presentes no espaço aéreo brasileiro, buscando determinar qual tipo é mais frequentemente envolvido em ocorrências: aviões, helicópteros ou jatos.
+
+A análise também aborda a relação entre a quantidade de motores de uma aeronave e a frequência de acidentes, investigando se as aeronaves com menos motores tendem a se envolver em mais ocorrências. Além disso, é examinada a participação das diferentes fabricantes de aeronaves, buscando identificar qual delas lidera em quantidade de casos.
+
+Um aspecto fundamental abordado neste estudo é a análise das fases de operação da aeronave em que ocorrem mais ocorrências, com foco especial na fase de pouso e comparação com as demais fases de voo.
+
+Por fim, o estudo busca responder se há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros tipos de operação. Além disso, são investigados o número total de incidentes com mortes e a média de pessoas que morrem em cada ocorrência, fornecendo insights cruciais para a segurança da aviação civil brasileira.
+
+
+## Tópicos a serem explorados
 
   * Quais fatores mais frequentemente contribuem para ocorrências e potenciais acidentes aéreos?
   * Ao longo do intervalo temporal da base, está havendo uma redução ou aumento de casos?
@@ -30,12 +43,70 @@ Autor: Welington Fonseca
   * Há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros?
   * Quantos incidentes com mortes ocorreram? Quantas pessoas morrem em cada ocorrência? 
 
-## Dados
+## Dados, Exploração e Percepções
 
 * **Fonte de dados**: A [base de dados](https://dados.gov.br/dados/conjuntos-dados/ocorrencias-aeronauticas-da-aviacao-civil-brasileira) de ocorrências aeronáuticas é gerenciada pelo Centro de Investigação e Prevenção de Acidentes Aeronáuticos (CENIPA);
 * **Acessibilidade e privacidade de dados**: a fonte de informações provém do [portal de dados abertos](https://dados.gov.br/home), que reforça a natureza pública e acessível dos dados utilizados, promovendo transparência e facilitando o acesso à informação para o público em geral;
 * **Tamanho e formato**: 3 arquivos no formato ```CSV``` (6,84 MB, descompactado);
-* **Intervalo dos dados da análise**: Janeiro de 2007 à Dezembro de 2023. 
+* **Intervalo dos dados da análise**: Janeiro de 2007 à Dezembro de 2023.
+
+### Sobre os datasets
+
+Para este estudo, foram utilizados três datasets da CENIPA:
+
+**Ocorrencia.csv**: Possui os dados sobre cada ocorrência registrada de 2007 à 2023. Código da Ocorrência, Data, Motivo da Ocorrência e Localização serão encontrados nesse conjunto de dados.
+
+**Ocorrencia_tipo.csv**: Aqui que importa para a analise é o tipo de ocorrência. Por exemplo: Colisão com ave, Falha ou mau funcionamento de sistema e varios outros.
+
+**Aeronave.csv**: Informações agrupadas sobre as aeronaves envolvidas nas ocorrências registradas no arquivo ocorrencia.csv. Aqui serão encontrados dados como: Modelo da Aeronave, Tipo de Aeronave, Fabricante, Quantidade de Fatalidades, dentre outros.
+
+### Sobre os tipos de dados para cada Dataset
+
+**Ocorrencia.csv**:
+
+```
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'ocorrencia'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDado_Ocorrencia.png" alt="" width="50%">
+
+
+**Ocorrencia_tipo.csv**
+
+```
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'ocorrencia_tipo'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDado_OcorrenciaTipoSem%20t%C3%ADtulo.png" alt="" width="100%">
+
+
+**Aeronave.csv**
+
+```
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE
+FROM 
+    INFORMATION_SCHEMA.COLUMNS
+WHERE 
+    TABLE_NAME = 'aeronave'
+```
+
+<img src="https://github.com/welingtonfonsec/Ocorrencias-Aeronauticas-na-Aviacao-Civil-Brasileira/blob/main/Imagens/TipoDeDado_Aeronave.png" alt="" width="100%">
+
+
 
 ### Quantas ocorrências estão registradas no banco de dados?
 
@@ -575,4 +646,36 @@ ORDER BY
 
 Felizmente e como era esperado, a esmagadora maioria, quase **94%**, das ocrrências não tem qualquer fatalidade. Em segundo lugar vem as ocorrências com apenas uma morte com pouco mais que 3% e em terceiro duas mortes com 1,67%. Isso se deve ao alto número de ocorrêcias com motores à pistão, que geralmente são usadas em pequenas aeronaves do tipo monomotores e bimotores que têm como uma de suas caracteristicas possuírem um ou dois assentos. 
 
+## Conclusão
 
+Com base nas análises realizadas sobre as ocorrências aeronáuticas na aviação civil brasileira, é possível tirar algumas conclusões importantes. Primeiramente, observa-se que a maioria das ocorrências registradas são de menor gravidade, o que é reconfortante em termos de segurança aérea.
+
+No entanto, um ponto de preocupação é o aumento significativo no número de ocorrências entre 2015 e 2023, com destaque para o ano de 2023, que não apenas ultrapassou o recorde histórico de 2013, mas mais que dobrou. Esse aumento levanta questões sobre a possibilidade de mais ocorrências reais, uma maior fiscalização ou até mesmo mudanças na metodologia de registro.
+
+Outro ponto relevante é a relação entre o número de ocorrências e os tipos de aeronaves. A predominância de ocorrências com aviões em relação a helicópteros, jatos e outros tipos de aeronaves indica a necessidade de uma atenção especial a esse segmento.
+
+Além disso, a análise por estado mostra que São Paulo lidera em número de ocorrências, o que pode ser explicado pela maior quantidade de aeroportos e movimentação aérea nesse estado. Essas informações são cruciais para direcionar esforços de prevenção e melhoria da segurança aérea.
+
+Em relação às causas das ocorrências, é interessante notar que a maioria delas não está diretamente relacionada à falha humana, o que é um bom sinal. No entanto, isso também indica a necessidade de um cuidado especial com fatores externos que fogem ao controle dos profissionais da aviação.
+
+Por fim, é reconfortante observar que a grande maioria das ocorrências não resulta em fatalidades, o que ressalta a segurança geral do meio de transporte aéreo. No entanto, é importante continuar monitorando e analisando esses dados para garantir que a aviação civil brasileira continue evoluindo em termos de segurança e eficiência.
+
+## Recomendações
+
+Com base nas análises realizadas sobre as ocorrências aeronáuticas na aviação civil brasileira, algumas recomendações podem ser sugeridas para aprimorar a segurança e prevenir futuros incidentes:
+
+**Análise aprofundada de 2023:** Devido ao aumento expressivo de ocorrências neste ano, é recomendável uma investigação mais detalhada para compreender as causas desse aumento e implementar medidas preventivas eficazes.
+
+**Fiscalização intensificada:** Considerando que a maioria das ocorrências não está relacionada à falha humana, é importante intensificar a fiscalização de fatores externos, como condições climáticas, infraestrutura aeroportuária e manutenção das aeronaves.
+
+**Treinamento e conscientização:** Investir em programas de treinamento e conscientização para pilotos, tripulações e equipes de manutenção pode ajudar a reduzir o número de ocorrências relacionadas a fatores humanos e garantir uma abordagem mais segura durante as operações.
+
+**Melhoria na gestão de risco avíario:** Dada a relevância das colisões com aves, é fundamental fortalecer as medidas de prevenção e gestão de risco avíario, em colaboração com diversas organizações do setor.
+
+**Manutenção e renovação de aeronaves:** Garantir que as aeronaves estejam em perfeitas condições de funcionamento e que sejam atualizadas conforme as normas de segurança vigentes é essencial para evitar ocorrências relacionadas a problemas mecânicos.
+
+**Reforço na capacitação de pilotos de voos particulares:** Devido ao alto índice de ocorrências nesse segmento, é importante implementar programas de capacitação específicos e rigorosos para os pilotos de voos particulares, visando melhorar a segurança dessas operações.
+
+**Cooperação e compartilhamento de informações:** Estabelecer uma maior cooperação e compartilhamento de informações entre as diferentes instituições e empresas do setor pode contribuir para identificar padrões, tendências e áreas de maior risco, possibilitando ações preventivas mais eficazes.
+
+Essas recomendações visam melhorar a segurança da aviação civil brasileira e garantir uma operação mais segura e eficiente para todos os envolvidos no setor.
