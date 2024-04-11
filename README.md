@@ -8,7 +8,7 @@ Autor: Welington Fonseca
 
 [1. Introdução](#introdução)
 
-[2. Tarefa de Negócios](#tarefa-de-negócios)
+[2. Tópicos a Serem Explorados](#tópicos-a-serem-explorados)
 
 [3. Dados, Exploração e Percepções](#dados-exploração-e-percepções)
 
@@ -31,7 +31,7 @@ Um aspecto fundamental abordado neste estudo é a análise das fases de operaç�
 Por fim, o estudo busca responder se há uma maior incidência de problemas em voos comerciais regulares em comparação com voos fretados, taxi aéreo e outros tipos de operação. Além disso, são investigados o número total de incidentes com mortes e a média de pessoas que morrem em cada ocorrência, fornecendo insights cruciais para a segurança da aviação civil brasileira.
 
 
-## Tarefa de Negócios
+## Tópicos a serem explorados
 
   * Quais fatores mais frequentemente contribuem para ocorrências e potenciais acidentes aéreos?
   * Ao longo do intervalo temporal da base, está havendo uma redução ou aumento de casos?
